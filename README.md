@@ -6,7 +6,7 @@ Lenguaje de programación adictivo y estimulante
 from cocaina import *
 
 definir((
-	imprimir("Hola Mundo!!"),
+    imprimir("Hola Mundo!!"),
 ), como="principal")
 
 ejecutar("principal")
@@ -27,9 +27,9 @@ definir((
     usar("restar"),
     si(esigual(6, 5),
         (crear("z"),
-        asignar("z", 5)),
+         asignar("z", 5)),
     sino=(crear("d"),
-        asignar("d", 5))),
+          asignar("d", 5))),
     porCada(lista([1, 2, 3, 5, 6]), (sumar("x", 1),)),
     devolver("x")
 ), como="función compleja")
