@@ -14,6 +14,8 @@ ejecutar("principal")
 
 ## Ejemplo mas complejo
 ```python
+from cocaina import *
+
 definir((
     sumarA("x", -5),
 ), como="restar")
