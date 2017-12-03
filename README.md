@@ -7,7 +7,7 @@ from cocaina import *
 
 definir((
 	imprimir("Hola Mundo!!"),
-	), como="principal")
+), como="principal")
 
 ejecutar("principal")
 ```
