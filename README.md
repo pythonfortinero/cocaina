@@ -34,5 +34,5 @@ definir((
     devolver("x")
 ), como="función compleja")
 
-ejecutar("función compleja")
+ejecutar("función compleja", {"a": 5})
 ```
