@@ -1,5 +1,5 @@
 
-m operator import eq
+from operator import eq
 global variables
 variables = dict()
 
