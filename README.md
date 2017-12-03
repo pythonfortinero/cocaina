@@ -21,16 +21,16 @@ definir((
 ), como="restar")
 
 definir((
-    crearVariable("x"),
-    asignarA("x", parametro("a")),
-    sumarA("x", 5),
+    crear("x"),
+    asignar("x", parametro("a")),
+    sumar("x", 5),
     usar("restar"),
     si(esigual(6, 5),
-        (crearVariable("z"),
-        asignarA("z", 5)),
-    sino=(crearVariable("d"),
-        asignarA("d", 5))),
-    porCada(lista([1, 2, 3, 5, 6]), (sumarA("x", 1),)),
+        (crear("z"),
+        asignar("z", 5)),
+    sino=(crear("d"),
+        asignar("d", 5))),
+    porCada(lista([1, 2, 3, 5, 6]), (sumar("x", 1),)),
     devolver("x")
 ), como="función compleja")
 

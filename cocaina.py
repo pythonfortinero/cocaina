@@ -24,16 +24,16 @@ def imprimir(valor):
     return lambda: print(valor) if valor not in variables else print(variables[valor])
 
 
-def crearVariable(x):
+def crear(x):
     """Cosas locas."""
     return lambda: variables.update({x: None})
 
 
-def asignarA(clave, valor):
+def asignar(clave, valor):
     return lambda: variables.update({clave: valor()}) if not isinstance(valor, (str, int, float)) else variables.update({clave: valor})
 
 
-def sumarA(a, b):
+def sumar(a, b):
     return lambda: variables.update({a: variables[a] + b if isinstance(b, (int, float)) else variables[b]})
 
 
