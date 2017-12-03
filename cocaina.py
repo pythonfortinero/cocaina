@@ -1,4 +1,5 @@
 
+from __future__ import print_function
 from operator import eq
 global variables
 variables = dict()
@@ -17,6 +18,10 @@ lista = list
 dicc = dict
 
 tupla = tuple
+
+
+def imprimir(valor):
+    return lambda: print(valor) if valor not in variables else print(variables[valor])
 
 
 def crearVariable(x):
