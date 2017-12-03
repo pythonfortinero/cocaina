@@ -17,7 +17,7 @@ ejecutar("principal")
 from cocaina import *
 
 definir((
-    sumarA("x", -5),
+    sumar("x", -5),
 ), como="restar")
 
 definir((
