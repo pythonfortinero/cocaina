@@ -25,7 +25,6 @@ def imprimir(valor):
 
 
 def crear(x):
-    """Cosas locas."""
     return lambda: variables.update({x: None})
 
 
@@ -37,12 +36,28 @@ def sumar(a, b):
     return lambda: variables.update({a: variables[a] + b if isinstance(b, (int, float)) else variables[b]})
 
 
+def restar(a, b):
+    return lambda: variables.update({a: variables[a] - b if isinstance(b, (int, float)) else variables[b]})
+
+
+def multiplicar(a, b):
+    return lambda: variables.update({a: variables[a] * b if isinstance(b, (int, float)) else variables[b]})
+
+
+def dividir(a, b):
+    return lambda: variables.update({a: variables[a] / b if isinstance(b, (int, float)) else variables[b]})
+
+
+def resto(a, b):
+    return lambda: variables.update({a: variables[a] % b if isinstance(b, (int, float)) else variables[b]})
+
+
 def porCada(algo, tupla):
     return lambda: [[elem() for elem in tupla] for a in algo]
 
 
 def si(condicion, tupla, sino=None):
-    return definir(tupla=tupla) if condicion else definir(tupla=sino) if sino else lambda: False 
+    return definir(tupla=tupla) if condicion else definir(tupla=sino) if sino else lambda: False
 
 
 def devolver(a):
@@ -84,4 +99,3 @@ def crearRuta():
 
 def servidor():
     pass
-
