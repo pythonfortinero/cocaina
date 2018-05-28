@@ -1,8 +1,12 @@
 
 from __future__ import print_function
 from operator import eq
-global variables
+from copy import deepcopy
+
+global variables, ultimosParametros, variablesLocales
 variables = dict()
+variablesLocales = dict()
+ultimosParametros = dict()
 
 esigual = eq
 
@@ -24,8 +28,8 @@ def imprimir(valor):
     return lambda: print(valor) if valor not in variables else print(variables[valor])
 
 
-def crear(x):
-    return lambda: variables.update({x: None})
+def crear(x, valor=None):
+    return lambda: variables.update({x: valor})
 
 
 def asignar(clave, valor):
@@ -64,25 +68,52 @@ def devolver(a):
     return lambda: variables[a]
 
 
-def definir(tupla=None, como=None):
-    if not como:
-        return lambda: list(map(lambda x: x() if x else x, tupla))[-1]
-    else:
-        variables[como] = lambda: list(map(lambda x: x(), tupla))[-1]
-    return
-
-
-def usar(nombre):
+def usar(nombre, parametros={}):
+    ultimosParametros = deepcopy(parametros)
     return variables[nombre]
 
 
+def usarLocal(nombre, parametros={}):
+    ultimosParametros = deepcopy(parametros)
+    return variablesLocales[nombre]
+
+
+def crearEnLocal(nombre, valor=None):
+    return lambda: variablesLocales.update({nombre: valor})
+
+
 def ejecutar(x, parametros={}):
-    variables.update(parametros)
-    return variables[x]()
+    globales = globals()
+    preVariablesLocales = globales["variablesLocales"]
+    globales["variablesLocales"] = {}
+    globales["variablesLocales"].update(globales["parametros"])
+    resultado = globales["variables"][x]()
+    globales["variableLocales"] = preVariablesLocales
+    return resultado
+
+
+def ejecutarInstruccion(x):
+    globales = globals()
+    preVariablesLocales = globales["variablesLocales"]
+    globales["variablesLocales"] = {}
+    if globales["ultimosParametros"]:
+        globales["variablesLocales"].update(globales["ultimosParametros"])
+        del globales["ultimosParametros"]
+    resultado = x()
+    globales["variableLocales"] = preVariablesLocales
+    return resultado
+
+
+def definir(tupla=None, como=None):
+    if not como:
+        return lambda: list(map(lambda x: ejecutarInstruccion(x), tupla))[-1]
+    else:
+        variables[como] = lambda: list(map(lambda x: ejecutarInstruccion(x), tupla))[-1]
+    return
 
 
 def parametro(x):
-    return lambda: variables[x]
+    return lambda: variablesLocales[x]
 
 
 def crearParametro(clave, valor):
