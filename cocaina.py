@@ -10,12 +10,11 @@ ultimosParametros = dict()
 
 esigual = eq
 
-
 flotante = float
 
 entero = int
 
-texto = str
+cadena = str
 
 lista = list
 
@@ -24,8 +23,22 @@ dicc = dict
 tupla = tuple
 
 
+def analizadorDeCadenas(valor):
+    globales = globals()
+    valorSeparado = valor.split()
+    return " ".join(map(lambda x: str(x) if "%%" not in x else str(globales["variables"][x.replace("%%", "")]), valorSeparado))
+
+
+def analizadorDeTupla(valor):
+    return ", ".join(map(lambda x: analizadorDeCadenas(x), valor))
+
+
+def generadorDeOutput(valor=""):
+    return analizadorDeTupla(valor) if isinstance(valor, (tupla, lista)) else analizadorDeCadenas(valor)
+
+
 def imprimir(valor):
-    return lambda: print(valor) if valor not in variables else print(variables[valor])
+    return lambda: print(generadorDeOutput(valor))
 
 
 def crear(x, valor=None):
@@ -70,12 +83,12 @@ def devolver(a):
 
 def usar(nombre, parametros={}):
     ultimosParametros = deepcopy(parametros)
-    return variables[nombre]
+    return lambda: variables[nombre]
 
 
 def usarLocal(nombre, parametros={}):
     ultimosParametros = deepcopy(parametros)
-    return variablesLocales[nombre]
+    return lambda: variablesLocales[nombre]
 
 
 def crearEnLocal(nombre, valor=None):
