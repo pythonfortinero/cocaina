@@ -99,7 +99,7 @@ def ejecutar(x, parametros={}):
     globales = globals()
     preVariablesLocales = globales["variablesLocales"]
     globales["variablesLocales"] = {}
-    globales["variablesLocales"].update(globales["parametros"])
+    globales["variablesLocales"].update(parametros)
     resultado = globales["variables"][x]()
     globales["variableLocales"] = preVariablesLocales
     return resultado
